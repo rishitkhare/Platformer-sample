@@ -1,7 +1,7 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
     m_FilePath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-      Development/Github/Platformer game/Packages/manifest.json
+      Development/Github/Platformer-sample/Platformer game/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
@@ -10,7 +10,7 @@ m_ProjectFiles:
     m_Hash: 127026619
   m_LockFileStatus:
     m_FilePath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-      Development/Github/Platformer game/Packages/packages-lock.json
+      Development/Github/Platformer-sample/Platformer game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
@@ -28,7 +28,7 @@ m_PackageAssets:
       version: 5.0.4
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.animation@5.0.4
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.animation@5.0.4
       assetPath: Packages/com.unity.2d.animation
       name: com.unity.2d.animation
       displayName: 2D Animation
@@ -160,7 +160,7 @@ m_PackageAssets:
       version: 4.0.1
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.pixel-perfect@4.0.1
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.pixel-perfect@4.0.1
       assetPath: Packages/com.unity.2d.pixel-perfect
       name: com.unity.2d.pixel-perfect
       displayName: 2D Pixel Perfect
@@ -235,7 +235,7 @@ m_PackageAssets:
       version: 4.0.2
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.psdimporter@4.0.2
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.psdimporter@4.0.2
       assetPath: Packages/com.unity.2d.psdimporter
       name: com.unity.2d.psdimporter
       displayName: 2D PSD Importer
@@ -397,7 +397,7 @@ m_PackageAssets:
       version: 5.1.1
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.spriteshape@5.1.1
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.spriteshape@5.1.1
       assetPath: Packages/com.unity.2d.spriteshape
       name: com.unity.2d.spriteshape
       displayName: 2D SpriteShape
@@ -578,7 +578,7 @@ m_PackageAssets:
       version: 1.3.9
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.collab-proxy@1.3.9
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.collab-proxy@1.3.9
       assetPath: Packages/com.unity.collab-proxy
       name: com.unity.collab-proxy
       displayName: Unity Collaborate
@@ -674,7 +674,7 @@ m_PackageAssets:
       version: 2.0.7
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.ide.rider@2.0.7
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.ide.rider@2.0.7
       assetPath: Packages/com.unity.ide.rider
       name: com.unity.ide.rider
       displayName: JetBrains Rider Editor
@@ -778,7 +778,7 @@ m_PackageAssets:
       version: 2.0.7
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.ide.visualstudio@2.0.7
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.ide.visualstudio@2.0.7
       assetPath: Packages/com.unity.ide.visualstudio
       name: com.unity.ide.visualstudio
       displayName: Visual Studio Editor
@@ -860,7 +860,7 @@ m_PackageAssets:
       version: 1.2.3
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.ide.vscode@1.2.3
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.ide.vscode@1.2.3
       assetPath: Packages/com.unity.ide.vscode
       name: com.unity.ide.vscode
       displayName: Visual Studio Code Editor
@@ -930,7 +930,7 @@ m_PackageAssets:
       version: 1.1.24
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.test-framework@1.1.24
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.test-framework@1.1.24
       assetPath: Packages/com.unity.test-framework
       name: com.unity.test-framework
       displayName: Test Framework
@@ -1019,7 +1019,7 @@ m_PackageAssets:
       version: 3.0.1
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.textmeshpro@3.0.1
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.textmeshpro@3.0.1
       assetPath: Packages/com.unity.textmeshpro
       name: com.unity.textmeshpro
       displayName: TextMeshPro
@@ -1175,7 +1175,7 @@ m_PackageAssets:
       version: 1.4.7
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.timeline@1.4.7
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.timeline@1.4.7
       assetPath: Packages/com.unity.timeline
       name: com.unity.timeline
       displayName: Timeline
@@ -3120,7 +3120,7 @@ m_PackageAssets:
       version: 1.0.6
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.ext.nunit@1.0.6
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.ext.nunit@1.0.6
       assetPath: Packages/com.unity.ext.nunit
       name: com.unity.ext.nunit
       displayName: Custom NUnit
@@ -3182,7 +3182,7 @@ m_PackageAssets:
       version: 1.1.0
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.mathematics@1.1.0
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.mathematics@1.1.0
       assetPath: Packages/com.unity.mathematics
       name: com.unity.mathematics
       displayName: Mathematics
@@ -3258,7 +3258,7 @@ m_PackageAssets:
       version: 4.0.3
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.common@4.0.3
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.common@4.0.3
       assetPath: Packages/com.unity.2d.common
       name: com.unity.2d.common
       displayName: 2D Common
@@ -3343,7 +3343,7 @@ m_PackageAssets:
       version: 4.0.1
       source: 1
       resolvedPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-        Development/Github/Platformer game/Library/PackageCache/com.unity.2d.path@4.0.1
+        Development/Github/Platformer-sample/Platformer game/Library/PackageCache/com.unity.2d.path@4.0.1
       assetPath: Packages/com.unity.2d.path
       name: com.unity.2d.path
       displayName: 2D Path
@@ -3407,5 +3407,5 @@ m_PackageAssets:
   m_LocalPackages:
     m_LocalFileStatus: []
 m_ProjectPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
-  Development/Github/Platformer game/Packages
+  Development/Github/Platformer-sample/Platformer game/Packages
 m_EditorVersion: 2020.3.7f1 (dd97f2c94397)

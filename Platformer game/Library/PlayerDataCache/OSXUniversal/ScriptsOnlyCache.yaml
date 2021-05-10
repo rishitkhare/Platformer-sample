@@ -3,7 +3,9 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AnimateParameters
     - LevelBounds
+    - Parallax
     - PlatformerPlayerController
+    - RoomTransitionMovement
     - SimpleRigidbody
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -31,7 +33,6 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnimatorStateTransitionInspector
     - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
@@ -72,15 +73,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 614}
     - Class: 114
-      Script: {instanceID: 1902}
+      Script: {instanceID: 1708}
     - Class: 114
-      Script: {instanceID: 2892}
+      Script: {instanceID: 1922}
     - Class: 114
-      Script: {instanceID: 3312}
+      Script: {instanceID: 2930}
     - Class: 114
-      Script: {instanceID: 3702}
+      Script: {instanceID: 3362}
     - Class: 114
-      Script: {instanceID: 4352}
+      Script: {instanceID: 3388}
+    - Class: 114
+      Script: {instanceID: 3756}
+    - Class: 114
+      Script: {instanceID: 4424}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -182,7 +187,13 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 344a8c2e106a0a4e098e91a52e0af063
+      Hash: 539f732a135a9c2dfe609a8099fbcd22
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Parallax
+  - hash:
+      serializedVersion: 2
+      Hash: f0786811516f7de8befd7a3e181e567a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
@@ -272,7 +283,7 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: c1933cc0a2f4ff6eb13333347497beb3
+      Hash: a74405a4829a834d107a0c6e072719ed
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
@@ -404,6 +415,12 @@ ScriptsOnlyBuild:
     className: AnimateParameters
   - hash:
       serializedVersion: 2
+      Hash: a40621d30dbcc1feaa0daf870cc8f8b5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RoomTransitionMovement
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -476,7 +493,7 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
-      Hash: d5f9aa5f3ebb850e3a7024a260edaaae
+      Hash: dfe74f76880fafdb399cd307cb669460
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlatformerPlayerController
@@ -602,7 +619,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: 5cc439bf63c0539d39588e69465ac2ab
+      Hash: fd68d84f33fad85aac38f2739c0ee270
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAsset
@@ -645,4 +662,5 @@ ScriptsOnlyBuild:
   platform: 2
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/AdarshKhare 1/Desktop/Platformer game/DemoBuildPlatformerGame.app
+  playerPath: /Users/AdarshKhare 1/Desktop/stupid things (school)/TWELFTH GRADE/Game
+    Development/Github/Platformer-sample/Builds/Mac Version.app
