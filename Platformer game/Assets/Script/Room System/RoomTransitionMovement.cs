@@ -19,6 +19,8 @@ public class RoomTransitionMovement : MonoBehaviour {
     public float followPlayerDecel = 0.9f;
     public float followPlayerAccel = 2f;
 
+    public bool dontFollowPlayerOffScreen;
+
     bool isTransitioningRoom;
     private int targetRoomIndex;
     private Vector3 transitionTarget;
@@ -73,7 +75,6 @@ public class RoomTransitionMovement : MonoBehaviour {
             OnRoomTransitionEnter?.Invoke(this, EventArgs.Empty);
             transitionTarget = SetTargetPosition();
             isTransitioningRoom = true;
-            Debug.Log("Snap!");
         }
 
         // If transition initiated, quickly shift screen to the next room
@@ -90,7 +91,12 @@ public class RoomTransitionMovement : MonoBehaviour {
     }
 
     private void SetRoomIndex() {
+        int oldTargetIndex = targetRoomIndex;
         targetRoomIndex = RoomIndex(player.transform.position);
+
+        if(dontFollowPlayerOffScreen && targetRoomIndex == -1) {
+            targetRoomIndex = oldTargetIndex;
+        }
     }
 
     public static int RoomIndex(Vector2 position) {

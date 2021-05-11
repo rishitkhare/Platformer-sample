@@ -6,9 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(SimpleRigidbody))]
 public class PlatformerPlayerController : MonoBehaviour {
 
+    public ParticleSystem DustParticles;
+
+    public float jumpGravity = 0.6f;
     public float gravity = 1f;
     public float jumpPower = 15f;
+
+    public int jumpHoldFrames = 12;
+    public int coyoteTimeFrames = 15;
     public int jumpLeewayFrames = 4;
+
+
     public float terminalVelocity = -15f;
     public float horizontalAcceleration = 1.2f;
     public float horizontalDecelerationFactor = 0.85f;
@@ -18,9 +26,14 @@ public class PlatformerPlayerController : MonoBehaviour {
 
     private float XInput = 0;
     int jumpLeewayFrameCounter;
-    bool registerJump;
+    int jumpHoldFrameCounter;
+    int coyoteTimeCounter;
 
     bool wasGroundedBefore;
+
+    bool jumpWasPressed;
+    bool recentlyTouchedPlatform;
+    bool isHoldingJump;
 
     SimpleRigidbody rb;
     Animator anim;
@@ -34,6 +47,8 @@ public class PlatformerPlayerController : MonoBehaviour {
         rb.calculateGrounded = true;
         rb.collisionsSetVelocityTo0 = true;
         jumpLeewayFrameCounter = jumpLeewayFrames;
+        jumpHoldFrameCounter = jumpHoldFrames;
+        coyoteTimeCounter = coyoteTimeFrames;
 
         anim = transform.GetComponentInChildren<Animator>();
         RoomTransitionMovement.RoomSystem.OnRoomTransitionEnter += Freeze;
@@ -41,26 +56,29 @@ public class PlatformerPlayerController : MonoBehaviour {
     }
 
     void Freeze(object sender, EventArgs e) {
-        Debug.Log("Freeze");
         rb.enabled = false;
         isFrozen = true;
     }
 
     void UnFreeze(object sender, EventArgs e) {
-        Debug.Log("Unfreeze");
         rb.enabled = true;
         isFrozen = false;
     }
 
     // Update is called once per frame
     void Update() {
-        XInput = Input.GetAxisRaw("Horizontal");
-        CountJumpLeewayFrames();
+        if(!isFrozen) {
+            XInput = Input.GetAxisRaw("Horizontal");
+            CountJumpLeewayFrames();
+        }
     }
 
     // FixedUpdate is called once per physics update
     void FixedUpdate() {
         if(!isFrozen) {
+            CountJumpHoldFrames();
+            DoCoyoteTime();
+
             PlatformerYVelocitySet();
             PlatformerXVelocitySet();
 
@@ -76,45 +94,85 @@ public class PlatformerPlayerController : MonoBehaviour {
         if (rb.GetGrounded()) {
             if(!wasGroundedBefore) {
                 anim.Play("Squash");
-                Debug.Log("Landed");
+
+                if(!DustParticles.isPlaying) {
+                    DustParticles.Play();
+                }
             }
 
             rb.SetVelocityY(0);
-
-            if (registerJump) {
-                Jump();
-
-                ResetJumpLeewayFrames();
-            }
         }
         else {
-            rb.AddVelocityY(-gravity);
+            if(isHoldingJump) {
+                rb.AddVelocityY(-jumpGravity);
+            }
+            else {
+                rb.AddVelocityY(-gravity);
+            }
+        }
+
+        if (jumpWasPressed && recentlyTouchedPlatform) {
+            Jump();
+            ResetJumpHoldFrames();
+            ResetJumpLeewayFrames();
         }
 
         //terminal velocity
-        if(rb.GetVelocity().y < -15f) {
-            rb.SetVelocityY(-15f);
+        if (rb.GetVelocity().y < terminalVelocity) {
+            rb.SetVelocityY(terminalVelocity);
         }
     }
 
     private void Jump() {
         rb.SetVelocityY(jumpPower);
         anim.Play("Stretch");
+
+        if(!DustParticles.isPlaying) {
+            DustParticles.Play();
+        }
     }
 
     private void CountJumpLeewayFrames() {
-        if(jumpLeewayFrameCounter < jumpLeewayFrames)
-        jumpLeewayFrameCounter++;
+        if(jumpLeewayFrameCounter < jumpLeewayFrames) {
+            jumpLeewayFrameCounter++;
+        }
 
         if(Input.GetButtonDown("Jump")) {
             jumpLeewayFrameCounter = 0;
         }
 
-        registerJump = jumpLeewayFrameCounter < jumpLeewayFrames;
+        jumpWasPressed = jumpLeewayFrameCounter < jumpLeewayFrames;
     }
 
     private void ResetJumpLeewayFrames() {
         jumpLeewayFrameCounter = jumpLeewayFrames;
+    }
+
+
+    private void CountJumpHoldFrames() {
+        if(Input.GetButton("Jump") && jumpHoldFrameCounter < jumpHoldFrames) {
+            jumpHoldFrameCounter++;
+        }
+        else if(!Input.GetButton("Jump")) {
+            jumpHoldFrameCounter = jumpHoldFrames;
+        }
+
+        isHoldingJump = jumpHoldFrameCounter < jumpHoldFrames;
+    }
+
+    private void ResetJumpHoldFrames() {
+        jumpHoldFrameCounter = 0;
+    }
+
+    private void DoCoyoteTime() {
+        if(rb.GetGrounded()) {
+            coyoteTimeCounter = 0;
+        }
+        else if(!rb.GetGrounded() && coyoteTimeCounter < coyoteTimeFrames) {
+            coyoteTimeCounter++;
+        }
+
+        recentlyTouchedPlatform = coyoteTimeCounter < coyoteTimeFrames;
     }
 
     #endregion Y Velocity

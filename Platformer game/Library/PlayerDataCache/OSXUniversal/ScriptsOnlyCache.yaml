@@ -18,6 +18,7 @@ ScriptsOnlyBuild:
     - UnityEngine.U2D.PixelPerfectCamera
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintPaletteClipboard
     - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
@@ -71,26 +72,30 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 614}
+      Script: {instanceID: 616}
     - Class: 114
-      Script: {instanceID: 1708}
+      Script: {instanceID: 1710}
     - Class: 114
-      Script: {instanceID: 1922}
+      Script: {instanceID: 1924}
     - Class: 114
-      Script: {instanceID: 2930}
+      Script: {instanceID: 2932}
     - Class: 114
-      Script: {instanceID: 3362}
+      Script: {instanceID: 3364}
     - Class: 114
-      Script: {instanceID: 3388}
+      Script: {instanceID: 3390}
     - Class: 114
-      Script: {instanceID: 3756}
+      Script: {instanceID: 3758}
     - Class: 114
-      Script: {instanceID: 4424}
+      Script: {instanceID: 4426}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 212
       Script: {instanceID: 0}
@@ -415,7 +420,7 @@ ScriptsOnlyBuild:
     className: AnimateParameters
   - hash:
       serializedVersion: 2
-      Hash: a40621d30dbcc1feaa0daf870cc8f8b5
+      Hash: b9d53c2838d826162f9245757819e8a0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoomTransitionMovement
@@ -493,7 +498,7 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
-      Hash: dfe74f76880fafdb399cd307cb669460
+      Hash: 47a2b782d8cbac5e890a707505e05fa0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlatformerPlayerController
