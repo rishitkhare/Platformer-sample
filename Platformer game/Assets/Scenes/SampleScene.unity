@@ -5359,7 +5359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DustParticles: {fileID: 777333673}
   jumpGravity: 0.25
-  gravity: 1.3
+  gravity: 1
   jumpPower: 11
   jumpHoldFrames: 17
   coyoteTimeFrames: 8
