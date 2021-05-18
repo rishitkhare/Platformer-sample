@@ -3,10 +3,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState {
+    platforming,
+    dashing,
+    frozen
+}
+
 [RequireComponent(typeof(SimpleRigidbody))]
 public class PlatformerPlayerController : MonoBehaviour {
 
     public ParticleSystem DustParticles;
+    public ParticleSystem DashParticles;
 
     public float jumpGravity = 0.6f;
     public float gravity = 1f;
@@ -21,13 +28,20 @@ public class PlatformerPlayerController : MonoBehaviour {
     public float horizontalAcceleration = 1.2f;
     public float horizontalDecelerationFactor = 0.85f;
 
-    bool isFrozen;
+    public float dashSpeed = 15f;
+    public float dashTime = 0.2f;
+    public float postDashDecel = 0.3f;
 
+    private PlayerState playerState;
+
+    bool isFrozen;
 
     private float XInput = 0;
     int jumpLeewayFrameCounter;
     int jumpHoldFrameCounter;
     int coyoteTimeCounter;
+
+    float dashTimer;
 
     bool wasGroundedBefore;
 
@@ -40,6 +54,7 @@ public class PlatformerPlayerController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        playerState = PlayerState.platforming;
         SpriteRenderer sp = gameObject.GetComponent<SpriteRenderer>();
         sp.sprite = null;
         rb = gameObject.GetComponent<SimpleRigidbody>();
@@ -68,21 +83,42 @@ public class PlatformerPlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if(!isFrozen) {
-            XInput = Input.GetAxisRaw("Horizontal");
-            CountJumpLeewayFrames();
+            switch(playerState) {
+                case (PlayerState.platforming):
+                    XInput = Input.GetAxisRaw("Horizontal");
+                    CountJumpLeewayFrames();
+                    CheckForDash();
+
+                    break;
+
+                case (PlayerState.dashing):
+                    dashTimer -= Time.deltaTime;
+                    if (dashTimer < 0f) {
+                        playerState = PlayerState.platforming;
+                        rb.SetVelocity(rb.GetVelocity() * postDashDecel);
+                    }
+
+                    break;
+
+            }
         }
     }
 
     // FixedUpdate is called once per physics update
     void FixedUpdate() {
         if(!isFrozen) {
-            CountJumpHoldFrames();
-            DoCoyoteTime();
+            switch(playerState) {
+                case (PlayerState.platforming):
+                    CountJumpHoldFrames();
+                    DoCoyoteTime();
 
-            PlatformerYVelocitySet();
-            PlatformerXVelocitySet();
+                    PlatformerYVelocitySet();
+                    PlatformerXVelocitySet();
 
-            wasGroundedBefore = rb.GetGrounded();
+                    wasGroundedBefore = rb.GetGrounded();
+                    break;
+            }
+
             rb.Move();
         }
     }
@@ -198,4 +234,24 @@ public class PlatformerPlayerController : MonoBehaviour {
     }
 
     #endregion X Velocity
+
+    #region input checking
+
+    private void CheckForDash() {
+        if(Input.GetButtonDown("Dash")) {
+            Vector2 input = Vector2.zero;
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+
+
+            playerState = PlayerState.dashing;
+            rb.SetVelocity(input.normalized * dashSpeed);
+            dashTimer = dashTime;
+
+            anim.Play("Dash");
+            DashParticles.Play();
+        }
+    }
+
+    #endregion input checking
 }
