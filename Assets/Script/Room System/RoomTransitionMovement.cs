@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomTransitionMovement : MonoBehaviour {
+    // Events fired when the room starts changing and when it has
+    // finished changing
     public event EventHandler OnRoomTransitionEnter;
     public event EventHandler OnRoomTransitionExit;
 
@@ -21,16 +23,18 @@ public class RoomTransitionMovement : MonoBehaviour {
 
     public bool dontFollowPlayerOffScreen;
 
-    bool isTransitioningRoom;
+    private bool isTransitioningRoom;
+
     private int targetRoomIndex;
+
     private Vector3 transitionTarget;
+
     private int currentRoomIndex;
+
     float smoothMinSpeedSqr;
 
     private Vector2 velocity;
 
-    //used to ignore any other camera effects
-    private Vector3 previousPosition;
 
     GameObject player;
 
@@ -56,7 +60,6 @@ public class RoomTransitionMovement : MonoBehaviour {
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        previousPosition = transform.position;
         isTransitioningRoom = false;
 
         smoothMinSpeedSqr = Mathf.Pow(smoothMinSpeed, 2);
@@ -64,10 +67,7 @@ public class RoomTransitionMovement : MonoBehaviour {
         SetRoomIndex();
     }
 
-    private void Update() {
-        //realigns camera after effects
-        transform.position = previousPosition;
-
+    private void LateUpdate() {
         SetRoomIndex();
 
         // Based on player's position, decide whether to initiate transition to another room
@@ -80,14 +80,12 @@ public class RoomTransitionMovement : MonoBehaviour {
         // If transition initiated, quickly shift screen to the next room
         // otherwise just follow the player within the current room
         if (isTransitioningRoom) {
-            MoveCameraSmooth();
+            InterpolateToNextRoom();
             SnapCameraToRoom(smoothMinSpeedSqr);
         }
         else {
             FollowPlayer();
         }
-
-        previousPosition = transform.position;
     }
 
     private void SetRoomIndex() {
@@ -158,7 +156,7 @@ public class RoomTransitionMovement : MonoBehaviour {
         return original;
     }
 
-    private void MoveCameraSmooth() {
+    private void InterpolateToNextRoom() {
         // move camera if necessary
         Vector3 deltaTransform = new Vector3(0, 0);
         float Xdiff = transitionTarget.x - transform.position.x;

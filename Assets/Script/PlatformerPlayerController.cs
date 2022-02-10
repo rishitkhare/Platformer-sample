@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Stores the player's state
 public enum PlayerState {
     platforming,
     dashing,
@@ -12,41 +14,57 @@ public enum PlayerState {
 [RequireComponent(typeof(SimpleRigidbody))]
 public class PlatformerPlayerController : MonoBehaviour {
 
+    // particle systems are serialized in the editor
     public ParticleSystem DustParticles;
     public ParticleSystem DashParticles;
 
-    public float jumpGravity = 0.6f;
-    public float gravity = 1f;
-    public float jumpPower = 15f;
+    // when player holds jump, the gravity is decreased for a
+    // short while
+    public float jumpGravity = 0.6f; // scale of low-grav
+    public float gravity = 1f; // regular grav
+    public float jumpPower = 15f; // initial velocity of jump
 
-    public int jumpHoldFrames = 12;
-    public int coyoteTimeFrames = 15;
-    public int jumpLeewayFrames = 4;
+    public int jumpHoldFrames = 12; // how long will low-grav be in effect (max)
+    public int coyoteTimeFrames = 15; // how many frames after leaving ground can player jump
+    public int jumpLeewayFrames = 4; // how many frames before leaving ground can player jump
 
 
-    public float terminalVelocity = -15f;
-    public float horizontalAcceleration = 1.2f;
-    public float horizontalDecelerationFactor = 0.85f;
+    public float terminalVelocity = -15f; // maximum falling speed (must be negative)
+    public float horizontalAcceleration = 1.2f; // is added to Xvel when moving
+    public float horizontalDecelerationFactor = 0.85f; // multiplied to Xvel to slow down
 
-    public float dashSpeed = 15f;
-    public float dashTime = 0.2f;
-    public float postDashDecel = 0.3f;
+    public float dashSpeed = 15f; // how fast the dash is
+    public float dashTime = 0.2f; // how long
+    public float postDashDecel = 0.3f; // once the dash is over,
+                                       // what fraction of the dash
+                                       // speed is retained
 
+    // stores state
     private PlayerState playerState;
 
+    // freezing (for when screen transitions)
     bool isFrozen;
 
+    // stores data from key presses
     private float XInput = 0;
+
+    // counters for frame data
     int jumpLeewayFrameCounter;
     int jumpHoldFrameCounter;
     int coyoteTimeCounter;
 
+    // counts how long you can dash
     float dashTimer;
 
+    // stores the state of grounded from the previous frame
+    // (used to play particles that emit when the player touches down)
     bool wasGroundedBefore;
 
+    // stores leeway jump status
     bool jumpWasPressed;
+    // stores coyote time status
     bool recentlyTouchedPlatform;
+    // key input status
     bool isHoldingJump;
 
     SimpleRigidbody rb;
@@ -55,12 +73,15 @@ public class PlatformerPlayerController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         playerState = PlayerState.platforming;
+
         SpriteRenderer sp = gameObject.GetComponent<SpriteRenderer>();
         sp.sprite = null;
+
         rb = gameObject.GetComponent<SimpleRigidbody>();
         rb.movesFromExternalScript = true;
         rb.calculateGrounded = true;
         rb.collisionsSetVelocityTo0 = true;
+
         jumpLeewayFrameCounter = jumpLeewayFrames;
         jumpHoldFrameCounter = jumpHoldFrames;
         coyoteTimeCounter = coyoteTimeFrames;
@@ -70,23 +91,29 @@ public class PlatformerPlayerController : MonoBehaviour {
         RoomTransitionMovement.RoomSystem.OnRoomTransitionExit += UnFreeze;
     }
 
+    // Freezes the player
     void Freeze(object sender, EventArgs e) {
         rb.enabled = false;
         isFrozen = true;
     }
 
+    // unfreezes the player
     void UnFreeze(object sender, EventArgs e) {
         rb.enabled = true;
         isFrozen = false;
     }
 
-    // Update is called once per frame
+    // Update method only checks for input (for maximum input accuracy)
+    // and also counts timing
     void Update() {
         if(!isFrozen) {
             switch(playerState) {
                 case (PlayerState.platforming):
                     XInput = Input.GetAxisRaw("Horizontal");
+
                     CountJumpLeewayFrames();
+                    CountJumpHoldFrames();
+
                     CheckForDash();
 
                     break;
@@ -109,9 +136,10 @@ public class PlatformerPlayerController : MonoBehaviour {
         if(!isFrozen) {
             switch(playerState) {
                 case (PlayerState.platforming):
-                    CountJumpHoldFrames();
-                    DoCoyoteTime();
+                    // various frame counting methods
+                    DoCoyoteTimeFrames();
 
+                    // physics
                     PlatformerYVelocitySet();
                     PlatformerXVelocitySet();
 
@@ -200,7 +228,7 @@ public class PlatformerPlayerController : MonoBehaviour {
         jumpHoldFrameCounter = 0;
     }
 
-    private void DoCoyoteTime() {
+    private void DoCoyoteTimeFrames() {
         if(rb.GetGrounded()) {
             coyoteTimeCounter = 0;
         }
