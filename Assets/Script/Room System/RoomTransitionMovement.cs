@@ -17,9 +17,7 @@ public class RoomTransitionMovement : MonoBehaviour {
     public float smoothMovementSpeed = 8.0f;
     public float smoothMinSpeed = 0.02f;
 
-    public Vector2 followPlayerLeeway = new Vector2(2, 2);
-    public float followPlayerDecel = 0.9f;
-    public float followPlayerAccel = 2f;
+    public Vector2 followPlayerAccel = new Vector2(0.013625f, 0.0078125f);
 
     public bool dontFollowPlayerOffScreen;
 
@@ -32,8 +30,6 @@ public class RoomTransitionMovement : MonoBehaviour {
     private int currentRoomIndex;
 
     float smoothMinSpeedSqr;
-
-    private Vector2 velocity;
 
 
     GameObject player;
@@ -114,7 +110,6 @@ public class RoomTransitionMovement : MonoBehaviour {
             transform.position = transitionTarget + new Vector3(0, 0, -10f);
 
             OnRoomTransitionExit?.Invoke(this, EventArgs.Empty);
-            velocity = Vector2.zero;
             currentRoomIndex = targetRoomIndex;
             isTransitioningRoom = false;
         }
@@ -184,27 +179,15 @@ public class RoomTransitionMovement : MonoBehaviour {
     }
 
     private void FollowPlayer() {
-        if (transform.position.x > player.transform.position.x + followPlayerLeeway.x) {
-            velocity.x -= followPlayerAccel;
-        }
-        else if (transform.position.x < player.transform.position.x - followPlayerLeeway.x) {
-            velocity.x += followPlayerAccel;
-        }
+        Vector3 newPosition = new Vector3() {
+            x = transform.position.x + (followPlayerAccel.x * (player.transform.position.x - transform.position.x)),
+            y = transform.position.y + (followPlayerAccel.y * (player.transform.position.y - transform.position.y)),
+            z = -10
+        };
 
-        if (transform.position.y > player.transform.position.y + followPlayerLeeway.y) {
-            velocity.y -= followPlayerAccel;
-        }
-        else if (transform.position.y < player.transform.position.y - followPlayerLeeway.y) {
-            velocity.y += followPlayerAccel;
-        }
+        newPosition = CorrectPosition(newPosition);
 
-        velocity *= followPlayerDecel;
-
-        transform.position += (Vector3)velocity * Time.deltaTime;
-
-        if (targetRoomIndex != -1) {
-            transform.position = CorrectPosition(transform.position);
-        }
+        transform.position = newPosition;
     }
 
     private bool RoomNeedsToSwitch() {

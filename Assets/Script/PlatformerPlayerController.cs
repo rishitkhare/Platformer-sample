@@ -81,6 +81,7 @@ public class PlatformerPlayerController : MonoBehaviour {
         rb.movesFromExternalScript = true;
         rb.calculateGrounded = true;
         rb.collisionsSetVelocityTo0 = true;
+        rb.SetDirection(Vector2.right);
 
         jumpLeewayFrameCounter = jumpLeewayFrames;
         jumpHoldFrameCounter = jumpHoldFrames;
@@ -110,6 +111,13 @@ public class PlatformerPlayerController : MonoBehaviour {
             switch(playerState) {
                 case (PlayerState.platforming):
                     XInput = Input.GetAxisRaw("Horizontal");
+                    if (XInput > 0) {
+                        rb.SetDirectionX(1);
+                    }
+                    else if (XInput < 0) {
+                        rb.SetDirectionX(-1);
+                    }
+
 
                     CountJumpLeewayFrames();
                     CountJumpHoldFrames();
@@ -123,6 +131,12 @@ public class PlatformerPlayerController : MonoBehaviour {
                     if (dashTimer < 0f) {
                         playerState = PlayerState.platforming;
                         rb.SetVelocity(rb.GetVelocity() * postDashDecel);
+                    }
+
+                    if (rb.GetGrounded()) {
+                        playerState = PlayerState.platforming;
+                        Debug.Log("wavedash?");
+                        rb.SetVelocity(rb.GetVelocity() * 8.0f);
                     }
 
                     break;
@@ -270,6 +284,9 @@ public class PlatformerPlayerController : MonoBehaviour {
             Vector2 input = Vector2.zero;
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
+            if (input == Vector2.zero) {
+                input = rb.GetDirection();
+            }
 
 
             playerState = PlayerState.dashing;
