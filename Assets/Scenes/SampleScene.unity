@@ -10162,15 +10162,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DustParticles: {fileID: 777333673}
   DashParticles: {fileID: 389562294}
-  jumpGravity: 0.25
+  jumpGravity: 0.35
   gravity: 1
   jumpPower: 9
-  jumpHoldFrames: 70
+  jumpHoldFrames: 80
   coyoteTimeFrames: 8
   jumpLeewayFrames: 8
-  terminalVelocity: -13
+  terminalVelocity: -11
   horizontalAcceleration: 1.8
   horizontalDecelerationFactor: 0.76
+  horizontalAirtimeDecelFactor: 0.8
   dashSpeed: 18
   dashTime: 0.2
   postDashDecel: 0.6

@@ -32,6 +32,7 @@ public class PlatformerPlayerController : MonoBehaviour {
     public float terminalVelocity = -15f; // maximum falling speed (must be negative)
     public float horizontalAcceleration = 1.2f; // is added to Xvel when moving
     public float horizontalDecelerationFactor = 0.85f; // multiplied to Xvel to slow down
+    public float horizontalAirtimeDecelFactor = 0.90f;
 
     public float dashSpeed = 15f; // how fast the dash is
     public float dashTime = 0.2f; // how long
@@ -41,6 +42,9 @@ public class PlatformerPlayerController : MonoBehaviour {
 
     // stores state
     private PlayerState playerState;
+
+    // direction being dashed in
+    private Vector2 dashDirection;
 
     // freezing (for when screen transitions)
     bool isFrozen;
@@ -133,10 +137,9 @@ public class PlatformerPlayerController : MonoBehaviour {
                         rb.SetVelocity(rb.GetVelocity() * postDashDecel);
                     }
 
-                    if (rb.GetGrounded()) {
+                    Debug.Log(rb.GetVelocity());
+                    if (rb.GetGrounded() && dashDirection.y < 0) {
                         playerState = PlayerState.platforming;
-                        Debug.Log("wavedash?");
-                        rb.SetVelocity(rb.GetVelocity() * 8.0f);
                     }
 
                     break;
@@ -266,12 +269,13 @@ public class PlatformerPlayerController : MonoBehaviour {
 
     private void DecelerateX() {
         float initialXvel = rb.GetVelocity().x;
+        float currentDecelFactor = rb.GetGrounded() ? horizontalDecelerationFactor : horizontalAirtimeDecelFactor;
 
         if (Mathf.Abs(0 - initialXvel) < 0.08f) {
             rb.SetVelocityX(0);
         }
         else {
-            rb.SetVelocityX(horizontalDecelerationFactor * initialXvel);
+            rb.SetVelocityX(currentDecelFactor * initialXvel);
         }
     }
 
@@ -290,7 +294,8 @@ public class PlatformerPlayerController : MonoBehaviour {
 
 
             playerState = PlayerState.dashing;
-            rb.SetVelocity(input.normalized * dashSpeed);
+            dashDirection = input.normalized;
+            rb.SetVelocity(dashDirection * dashSpeed);
             dashTimer = dashTime;
 
             anim.Play("Dash");
